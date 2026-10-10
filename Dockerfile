@@ -163,15 +163,15 @@ ENV GOCLAW_CONFIG=/app/config.json \
     GOCLAW_SKILLS_DIR=/app/skills \
     GOCLAW_MIGRATIONS_DIR=/app/migrations \
     GOCLAW_HOST=0.0.0.0 \
-    GOCLAW_PORT=18790
+    GOCLAW_PORT=3000
 
 # Entrypoint runs as root to install persisted packages and start pkg-helper,
 # then drops to goclaw user via su-exec before starting the app.
 
-EXPOSE 18790
+EXPOSE 3000 18790
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD wget -qO- http://localhost:18790/health || exit 1
+    CMD wget -qO- http://localhost:${GOCLAW_PORT:-3000}/health || exit 1
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["serve"]
