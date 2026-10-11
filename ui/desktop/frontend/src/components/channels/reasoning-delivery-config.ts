@@ -7,7 +7,7 @@ export const reasoningDeliveryOptions = [
 export function resolveReasoningDeliveryValue(config: Record<string, unknown> | undefined): string {
   const mode = typeof config?.reasoning_delivery === 'string' ? config.reasoning_delivery : ''
   if (mode === 'streaming_only' || mode === 'always_bubbles' || mode === 'off') return mode
-  return config?.reasoning_stream === false ? 'off' : 'streaming_only'
+  return config?.reasoning_stream === true ? 'streaming_only' : 'off'
 }
 
 export function normalizeReasoningDeliveryConfig<T extends Record<string, unknown>>(config: T): T {

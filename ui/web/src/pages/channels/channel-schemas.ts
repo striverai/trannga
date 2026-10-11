@@ -151,7 +151,7 @@ export const configSchema: Record<string, FieldDef[]> = {
     { key: "dm_stream", label: "DM Streaming", type: "boolean", defaultValue: true, help: "Stream response progressively in DMs" },
     { key: "group_stream", label: "Group Streaming", type: "boolean", defaultValue: false, help: "Stream response progressively in groups" },
     { key: "draft_transport", label: "Draft Preview", type: "boolean", defaultValue: true, help: "Use stealth draft preview for answer stream in DMs — no notification per edit (requires DM Streaming)" },
-    { key: "reasoning_delivery", label: "Show Reasoning", type: "select", options: reasoningDeliveryOptions, defaultValue: "streaming_only", help: "Choose how model reasoning is shown in channel messages." },
+    { key: "reasoning_delivery", label: "Show Reasoning", type: "select", options: reasoningDeliveryOptions, defaultValue: "off", help: "Choose how model reasoning is shown in channel messages." },
     { key: "reaction_level", label: "Reaction Level", type: "select", options: [{ value: "off", label: "Off" }, { value: "minimal", label: "Minimal" }, { value: "full", label: "Full" }], defaultValue: "full" },
     { key: "media_max_mb", label: "Max Media Size (MB)", type: "number", defaultValue: 20, help: "Default: 20 MB (cloud API). Increase when using local Bot API server." },
     { key: "link_preview", label: "Link Preview", type: "boolean", defaultValue: true },

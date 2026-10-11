@@ -10,7 +10,7 @@ describe("telegram configSchema", () => {
     const reasoningDelivery = telegramConfig.find((f) => f.key === "reasoning_delivery");
     expect(reasoningDelivery).toBeDefined();
     expect(reasoningDelivery!.type).toBe("select");
-    expect(reasoningDelivery!.defaultValue).toBe("streaming_only");
+    expect(reasoningDelivery!.defaultValue).toBe("off");
     expect(reasoningDelivery!.help).not.toMatch(/requires streaming/i);
     expect(reasoningDelivery!.options!.map((o) => o.value)).toEqual(["streaming_only", "always_bubbles", "off"]);
     expect(telegramConfig.find((f) => f.key === "reasoning_stream")).toBeUndefined();

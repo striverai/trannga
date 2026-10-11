@@ -1,6 +1,9 @@
 package channels
 
-import "strings"
+import (
+	"os"
+	"strings"
+)
 
 const (
 	ReasoningDeliveryOff           = "off"
@@ -16,6 +19,12 @@ type ResolvedReasoningDelivery struct {
 }
 
 func ResolveReasoningDelivery(mode string, legacyReasoningStream *bool) ResolvedReasoningDelivery {
+	if mode == "" {
+		if env := os.Getenv("GOCLAW_REASONING_DELIVERY"); env != "" {
+			mode = env
+		}
+	}
+
 	switch NormalizeReasoningDeliveryMode(mode) {
 	case ReasoningDeliveryOff:
 		return ResolvedReasoningDelivery{Mode: ReasoningDeliveryOff}
@@ -33,12 +42,15 @@ func ResolveReasoningDelivery(mode string, legacyReasoningStream *bool) Resolved
 		}
 	}
 
-	if legacyReasoningStream != nil && !*legacyReasoningStream {
-		return ResolvedReasoningDelivery{Mode: ReasoningDeliveryOff}
+	if legacyReasoningStream != nil && *legacyReasoningStream {
+		return ResolvedReasoningDelivery{
+			Mode:          ReasoningDeliveryStreamingOnly,
+			ShowInChannel: true,
+		}
 	}
 	return ResolvedReasoningDelivery{
-		Mode:          ReasoningDeliveryStreamingOnly,
-		ShowInChannel: true,
+		Mode:          ReasoningDeliveryOff,
+		ShowInChannel: false,
 	}
 }
 

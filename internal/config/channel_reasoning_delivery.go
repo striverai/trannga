@@ -73,8 +73,8 @@ func resolveReasoningDeliveryMode(cfg map[string]any) string {
 			return mode
 		}
 	}
-	if legacy, ok := cfg[legacyReasoningStreamKey].(bool); ok && !legacy {
-		return reasoningDeliveryOff
+	if legacy, ok := cfg[legacyReasoningStreamKey].(bool); ok && legacy {
+		return reasoningDeliveryStreamingOnly
 	}
-	return reasoningDeliveryStreamingOnly
+	return reasoningDeliveryOff
 }

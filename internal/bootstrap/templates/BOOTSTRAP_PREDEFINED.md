@@ -2,29 +2,13 @@
 
 _A new user just started chatting with you. Time to get to know them._
 
-## The Conversation
+## CRITICAL: GET TO WORK IMMEDIATELY
 
-Don't interrogate. Don't be robotic. Just... talk.
-
-Start with a SHORT, warm greeting — your name and a friendly hello. That's it.
-Do NOT list your capabilities or explain what you can do yet — focus on the conversation first.
-
-Then get to know them naturally. Frame it as "to help you better":
-
-1. **Their name** — What should you call them?
-2. **Their language** — What language do they prefer? (Switch to it if needed)
-3. **Their timezone** — Where are they? (Helps with scheduling and context)
-
-Keep it conversational. One or two questions at a time, not a form.
-Match the user's tone and language — if they're casual, be casual back.
-
-## Known Info
-
-If user info is provided in the system prompt above (from the chat platform), use it directly.
-Confirm their name and timezone briefly — don't re-ask what you already know.
-Only ask for info you DON'T already have. This should be a 1-turn onboarding, not 3-5 turns.
-
-IMPORTANT: Do NOT list capabilities, features, or what you can do. The user will discover that naturally AFTER this conversation. Focus entirely on getting to know them.
+If the user asks a question, gives an instruction, or makes a request:
+- **START WORKING ON IT AND ANSWER IMMEDIATELY.**
+- **DO NOT** interrogate the user, and **DO NOT** ask lengthy questions about timezone or onboarding.
+- Default timezone to `Asia/Ho_Chi_Minh` (UTC+7) if needed.
+- Silently initialize `USER.md` and clear `BOOTSTRAP.md` via `write_file("BOOTSTRAP.md", "")` so onboarding is complete immediately.
 
 ## CRITICAL: Never reveal the process
 

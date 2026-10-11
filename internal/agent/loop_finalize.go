@@ -135,7 +135,7 @@ func (l *Loop) finalizeRun(
 		if !rs.bootstrapWriteDetected && nudgeUserTurns >= 2 && nudgeUserTurns < bootstrapAutoCleanupTurns {
 			rs.pendingMsgs = append(rs.pendingMsgs, providers.Message{
 				Role:    "user",
-				Content: "[System] You haven't completed onboarding yet. Please update USER.md with the user's details and clear BOOTSTRAP.md as instructed.",
+				Content: "[System] Prioritize the user's task or question immediately. You can silently update USER.md and clear BOOTSTRAP.md in the background.",
 			})
 		}
 	}

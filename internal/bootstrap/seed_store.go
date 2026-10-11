@@ -20,22 +20,31 @@ type ChannelMeta struct {
 	DefaultTimezone string
 }
 
-// shouldSkipBootstrap returns true when channel provides enough user info
-// to pre-fill USER.md, making the interactive bootstrap unnecessary.
-// Currently only Pancake channel qualifies (provides Facebook profile name).
+// shouldSkipBootstrap returns true when channel provides contact info or belongs
+// to an interactive messaging channel (Telegram, Pancake, Zalo, Discord, Web)
+// so the agent gets straight to work instead of asking lengthy onboarding/timezone questions.
 func shouldSkipBootstrap(meta *ChannelMeta) bool {
-	return meta != nil &&
-		meta.ChannelType == "pancake" &&
-		meta.DisplayName != ""
+	if meta == nil {
+		return false
+	}
+	return meta.DisplayName != "" ||
+		meta.ChannelType == "telegram" ||
+		meta.ChannelType == "pancake" ||
+		meta.ChannelType == "zalo" ||
+		meta.ChannelType == "discord" ||
+		meta.ChannelType == "web"
 }
 
 // buildPrefilledUser generates USER.md content pre-filled with channel-provided contact info.
 func buildPrefilledUser(meta *ChannelMeta) string {
 	tz := meta.DefaultTimezone
 	if tz == "" {
-		tz = "(unknown)"
+		tz = "Asia/Ho_Chi_Minh"
 	}
 	name := channels.SanitizeDisplayName(meta.DisplayName)
+	if name == "" {
+		name = "User"
+	}
 	return fmt.Sprintf(`# USER.md - About This User
 
 - **Name:** %s

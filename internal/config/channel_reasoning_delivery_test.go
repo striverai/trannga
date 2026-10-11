@@ -36,6 +36,20 @@ func TestNormalizeChannelInstanceConfigValue_LegacyFalseMapsToOff(t *testing.T) 
 	}
 }
 
+func TestNormalizeChannelInstanceConfigValue_LegacyTrueMapsToStreamingOnly(t *testing.T) {
+	got := NormalizeChannelInstanceConfigValue("telegram", map[string]any{
+		"reasoning_stream": true,
+	})
+
+	cfg := got.(map[string]any)
+	if cfg["reasoning_delivery"] != reasoningDeliveryStreamingOnly {
+		t.Fatalf("reasoning_delivery = %v, want streaming_only", cfg["reasoning_delivery"])
+	}
+	if _, ok := cfg["reasoning_stream"]; ok {
+		t.Fatal("legacy reasoning_stream survived normalization")
+	}
+}
+
 func TestNormalizeChannelInstanceConfigValue_IgnoresOtherChannels(t *testing.T) {
 	raw := json.RawMessage(`{"reasoning_stream":false}`)
 	got := NormalizeChannelInstanceConfigRaw("slack", raw)
@@ -43,3 +57,4 @@ func TestNormalizeChannelInstanceConfigValue_IgnoresOtherChannels(t *testing.T) 
 		t.Fatalf("non-telegram config changed: %s", got)
 	}
 }
+
